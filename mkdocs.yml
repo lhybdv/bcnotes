@@ -1,0 +1,49 @@
+site_name: 区块链数据存储与同步
+site_description: 刘挥宇的学习笔记
+site_url: https://lhybdv.github.io/bcnotes
+nav:
+  - 比特币: 
+    - 结构: bitcoin/structure.md
+    - 通信协议: bitcoin/protocal.md
+    - 同步: bitcoin/sync.md
+    - QA: bitcoin/QA.md
+  - 以太坊: 
+    - 结构: ethereum/structure.md
+    - 通信协议: ethereum/protocal.md
+    - 同步: ethereum/sync.md
+    - QA: ethereum/QA.md
+  - 超级账本:
+    - 结构: hyperledger/structure.md
+    - 通信协议: hyperledger/protocal.md
+    - 同步: hyperledger/sync.md
+    - QA: hyperledger/QA.md
+  - EOS:
+    - 结构: eos/structure.md
+    - 通信协议: eos/protocal.md
+    - 同步: eos/sync.md
+    - QA: eos/QA.md
+  - Trias:
+    - 数据层: trias/datastore.md
+
+theme:
+  name: 'material'
+
+markdown_extensions:
+  - admonition
+  - codehilite:
+      guess_lang: false
+  - toc:
+      permalink: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_div_format
+  - plantuml
+
+
+extra_css:
+  - https://unpkg.com/mermaid@7.1.2/dist/mermaid.css
+extra_javascript:
+  - https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js
+  - js/material_nav_extend.js
