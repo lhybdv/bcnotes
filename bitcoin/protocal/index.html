@@ -1,0 +1,1982 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="刘挥宇的学习笔记">
+      
+      
+        <link rel="canonical" href="https://lhybdv.github.io/bcnotes/bitcoin/protocal/">
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-3.0.4">
+    
+    
+      
+        <title>通信协议 - 区块链数据存储与同步</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.451f80e5.css">
+      
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+      <link rel="stylesheet" href="https://unpkg.com/mermaid@7.1.2/dist/mermaid.css">
+    
+    
+  </head>
+  
+    <body dir="ltr">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="../../#_1" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://lhybdv.github.io/bcnotes" title="区块链数据存储与同步" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                区块链数据存储与同步
+              </span>
+              <span class="md-header-nav__topic">
+                通信协议
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://lhybdv.github.io/bcnotes" title="区块链数据存储与同步" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    区块链数据存储与同步
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1" checked>
+    
+    <label class="md-nav__link" for="nav-1">
+      比特币
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-1">
+        比特币
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../structure/" title="结构" class="md-nav__link">
+      结构
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        通信协议
+      </label>
+    
+    <a href="./" title="通信协议" class="md-nav__link md-nav__link--active">
+      通信协议
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" title="1 共用结构" class="md-nav__link">
+    1 共用结构
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-message" title="1.1 Message(消息)" class="md-nav__link">
+    1.1 Message(消息)
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1212-variable-length-integer" title="1.2.1.2 Variable length integer (变长整数)" class="md-nav__link">
+    1.2.1.2 Variable length integer (变长整数)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1213-variable-length-string" title="1.2.1.3 Variable length string (变长字符串)" class="md-nav__link">
+    1.2.1.3 Variable length string (变长字符串)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1214-network-address" title="1.2.1.4 Network address (网络地址)" class="md-nav__link">
+    1.2.1.4 Network address (网络地址)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1215-inventory-vectors" title="1.2.1.5 Inventory Vectors (清单向量)" class="md-nav__link">
+    1.2.1.5 Inventory Vectors (清单向量)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1216-block-headers-block" title="1.2.1.6 Block Headers (Block头部)" class="md-nav__link">
+    1.2.1.6 Block Headers (Block头部)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" title="2 消息类型" class="md-nav__link">
+    2 消息类型
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-version" title="2.1 version" class="md-nav__link">
+    2.1 version
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-verack" title="2.2 verack" class="md-nav__link">
+    2.2 verack
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-addr" title="2.3 addr" class="md-nav__link">
+    2.3 addr
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-inv" title="2.4 inv" class="md-nav__link">
+    2.4 inv
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-getdata" title="2.5 getdata" class="md-nav__link">
+    2.5 getdata
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-getblocks" title="2.6 getblocks" class="md-nav__link">
+    2.6 getblocks
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27-getheaders" title="2.7 getheaders" class="md-nav__link">
+    2.7 getheaders
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#28-tx" title="2.8 tx" class="md-nav__link">
+    2.8 tx
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#29-block" title="2.9 block" class="md-nav__link">
+    2.9 block
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#210-headers" title="2.10 headers" class="md-nav__link">
+    2.10 headers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#211-getaddr" title="2.11 getaddr" class="md-nav__link">
+    2.11 getaddr
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212-checkorder" title="2.12 checkorder" class="md-nav__link">
+    2.12 checkorder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#213-submitorder" title="2.13 submitorder" class="md-nav__link">
+    2.13 submitorder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#214-reply" title="2.14 reply" class="md-nav__link">
+    2.14 reply
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#215-ping" title="2.15 ping" class="md-nav__link">
+    2.15 ping
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#216-alert" title="2.16 alert" class="md-nav__link">
+    2.16 alert
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../sync/" title="同步" class="md-nav__link">
+      同步
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../QA/" title="QA" class="md-nav__link">
+      QA
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      以太坊
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        以太坊
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ethereum/structure/" title="结构" class="md-nav__link">
+      结构
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ethereum/protocal/" title="通信协议" class="md-nav__link">
+      通信协议
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ethereum/sync/" title="同步" class="md-nav__link">
+      同步
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ethereum/QA/" title="QA" class="md-nav__link">
+      QA
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      超级账本
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        超级账本
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../hyperledger/structure.md" title="结构" class="md-nav__link">
+      结构
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../hyperledger/protocal.md" title="通信协议" class="md-nav__link">
+      通信协议
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../hyperledger/sync.md" title="同步" class="md-nav__link">
+      同步
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../hyperledger/QA.md" title="QA" class="md-nav__link">
+      QA
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      EOS
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        EOS
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../eos/structure/" title="结构" class="md-nav__link">
+      结构
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../eos/protocal.md" title="通信协议" class="md-nav__link">
+      通信协议
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../eos/sync.md" title="同步" class="md-nav__link">
+      同步
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../eos/QA.md" title="QA" class="md-nav__link">
+      QA
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Trias
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Trias
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../trias/datastore/" title="数据层" class="md-nav__link">
+      数据层
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" title="1 共用结构" class="md-nav__link">
+    1 共用结构
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-message" title="1.1 Message(消息)" class="md-nav__link">
+    1.1 Message(消息)
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1212-variable-length-integer" title="1.2.1.2 Variable length integer (变长整数)" class="md-nav__link">
+    1.2.1.2 Variable length integer (变长整数)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1213-variable-length-string" title="1.2.1.3 Variable length string (变长字符串)" class="md-nav__link">
+    1.2.1.3 Variable length string (变长字符串)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1214-network-address" title="1.2.1.4 Network address (网络地址)" class="md-nav__link">
+    1.2.1.4 Network address (网络地址)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1215-inventory-vectors" title="1.2.1.5 Inventory Vectors (清单向量)" class="md-nav__link">
+    1.2.1.5 Inventory Vectors (清单向量)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1216-block-headers-block" title="1.2.1.6 Block Headers (Block头部)" class="md-nav__link">
+    1.2.1.6 Block Headers (Block头部)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" title="2 消息类型" class="md-nav__link">
+    2 消息类型
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-version" title="2.1 version" class="md-nav__link">
+    2.1 version
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-verack" title="2.2 verack" class="md-nav__link">
+    2.2 verack
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-addr" title="2.3 addr" class="md-nav__link">
+    2.3 addr
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-inv" title="2.4 inv" class="md-nav__link">
+    2.4 inv
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-getdata" title="2.5 getdata" class="md-nav__link">
+    2.5 getdata
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-getblocks" title="2.6 getblocks" class="md-nav__link">
+    2.6 getblocks
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27-getheaders" title="2.7 getheaders" class="md-nav__link">
+    2.7 getheaders
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#28-tx" title="2.8 tx" class="md-nav__link">
+    2.8 tx
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#29-block" title="2.9 block" class="md-nav__link">
+    2.9 block
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#210-headers" title="2.10 headers" class="md-nav__link">
+    2.10 headers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#211-getaddr" title="2.11 getaddr" class="md-nav__link">
+    2.11 getaddr
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212-checkorder" title="2.12 checkorder" class="md-nav__link">
+    2.12 checkorder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#213-submitorder" title="2.13 submitorder" class="md-nav__link">
+    2.13 submitorder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#214-reply" title="2.14 reply" class="md-nav__link">
+    2.14 reply
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#215-ping" title="2.15 ping" class="md-nav__link">
+    2.15 ping
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#216-alert" title="2.16 alert" class="md-nav__link">
+    2.16 alert
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="_1">比特币通信协议<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h2 id="1">1 共用结构<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<h3 id="11-message">1.1 Message(消息)<a class="headerlink" href="#11-message" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>字段尺寸</th>
+<th>描述</th>
+<th>数据类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4</td>
+<td>magic</td>
+<td>uint32_t</td>
+<td>用于识别消息的来源网络，当流状态位置时，它还用于寻找下一条消息</td>
+</tr>
+<tr>
+<td>12</td>
+<td>command</td>
+<td>char[12]</td>
+<td>识别包内容的ASCII字串，用NULL字符补满，(使用非NULL字符填充会被拒绝)</td>
+</tr>
+<tr>
+<td>4</td>
+<td>length</td>
+<td>uint32_t</td>
+<td>payload的字节数</td>
+</tr>
+<tr>
+<td>4</td>
+<td>checksum</td>
+<td>uint32_t</td>
+<td>sha256(sha256(payload)) 的前4个字节(不包含在version 或 verack 中)</td>
+</tr>
+<tr>
+<td>?</td>
+<td>payload</td>
+<td>uchar[]</td>
+<td>实际数据</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">command</p>
+<ol>
+<li>char 范围 [-128, 127], 第 1 位表示符号，0 为正，1 为负</li>
+<li>uchar[] 范围 [0, 255]</li>
+<li>command 就是消息的类型，目前涉及的类型有：<ol>
+<li>version</li>
+<li>verack</li>
+<li>addr</li>
+<li>inv</li>
+<li>getdata</li>
+<li>getblocks</li>
+<li>getheaders</li>
+<li>tx</li>
+<li>block</li>
+<li>headers</li>
+<li>getaddr</li>
+<li>ping</li>
+<li>alert</li>
+<li>merkleblock</li>
+<li>mempool</li>
+<li>pong</li>
+<li>notfound</li>
+<li>filterload</li>
+<li>filteradd</li>
+<li>filterclear</li>
+<li>reject</li>
+<li>sendheaders</li>
+<li>feefilter</li>
+<li>sendcmpct</li>
+<li>cmpctblock</li>
+<li>getblocktxn</li>
+<li>blocktxn</li>
+</ol>
+</li>
+</ol>
+</div>
+<div class="admonition note checksum">
+<p class="admonition-title">Note</p>
+<ol>
+<li>对 payload (消息体) 的 2 次 sha256 哈希之后的前 4 个字节，跟 git 用法类似，前几位足以起到区别的作用</li>
+<li>应该 <em>不是</em> 用于防恶意篡改的，因为发出方自己可以重新计算，同时改 payload 和 checksum </li>
+<li>应该 <em>是</em> 防止网络传输、读取错误之类的导致数据不完整</li>
+<li>version, verack 这 2 个消息没有 checksum，因为没有 payload</li>
+</ol>
+</div>
+<p>已定义的magic值：</p>
+<table>
+<thead>
+<tr>
+<th>Network</th>
+<th>Magic value</th>
+<th>Sent over wire as</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>main</td>
+<td>0xD9B4BEF9</td>
+<td>F9 BE B4 D9</td>
+</tr>
+<tr>
+<td>testnet</td>
+<td>0xDAB5BFFA</td>
+<td>FA BF B5 DA</td>
+</tr>
+<tr>
+<td>testnet3</td>
+<td>0x0709110B</td>
+<td>0B 11 09 07</td>
+</tr>
+<tr>
+<td>namecoin</td>
+<td>0xFEB4BEF9</td>
+<td>F9 BE B4 FE</td>
+</tr>
+</tbody>
+</table>
+<h4 id="1212-variable-length-integer">1.2.1.2 Variable length integer (变长整数)<a class="headerlink" href="#1212-variable-length-integer" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>存储长度</th>
+<th>格式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&lt; 0xfd</td>
+<td>1</td>
+<td>uint8_t</td>
+</tr>
+<tr>
+<td>&lt;= 0xffff</td>
+<td>3</td>
+<td>0xfd + uint16_t</td>
+</tr>
+<tr>
+<td>&lt;= 0xffffffff</td>
+<td>5</td>
+<td>0xfe + uint32_t</td>
+</tr>
+<tr>
+<td>-</td>
+<td>9</td>
+<td>0xff + uint64_t</td>
+</tr>
+</tbody>
+</table>
+<h4 id="1213-variable-length-string">1.2.1.3 Variable length string (变长字符串)<a class="headerlink" href="#1213-variable-length-string" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>字段尺寸</th>
+<th>描述</th>
+<th>数据类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>?</td>
+<td>length</td>
+<td>var_int</td>
+<td>字符串长度</td>
+</tr>
+<tr>
+<td>?</td>
+<td>string</td>
+<td>char[]</td>
+<td>字符串本身(可为空)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="1214-network-address">1.2.1.4 Network address (网络地址)<a class="headerlink" href="#1214-network-address" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>字段尺寸</th>
+<th>描述</th>
+<th>数据类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>8</td>
+<td>services</td>
+<td>uint64_t</td>
+<td>与version 消息中的service(s)相同</td>
+</tr>
+<tr>
+<td>16</td>
+<td>IPv6/4</td>
+<td>char[16]</td>
+<td>Ipv6地址，以网络字节顺序存储。</td>
+</tr>
+<tr>
+<td>2</td>
+<td>port</td>
+<td>uint16_t</td>
+<td>端口号，以网络字节顺序存储。</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note ip 地址">
+<p class="admonition-title">Note</p>
+<ul>
+<li>官方客户端仅支持IPv4，仅读取最后4个字节以获取IPv4地址。</li>
+<li>IPv4地址以16字节的IPv4映射位址格式写入结构。(12字节 00 00 00 00 00 00 00 00 00 00 FF FF, 后跟4 字节IPv4地址)</li>
+</ul>
+</div>
+<h4 id="1215-inventory-vectors">1.2.1.5 Inventory Vectors (清单向量)<a class="headerlink" href="#1215-inventory-vectors" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>字段尺寸</th>
+<th>描述</th>
+<th>数据类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4</td>
+<td>type</td>
+<td>uint32_t</td>
+<td>对象类型标识</td>
+</tr>
+<tr>
+<td>32</td>
+<td>hash</td>
+<td>char[32]</td>
+<td>对象散列值</td>
+</tr>
+</tbody>
+</table>
+<p>目前对象类型标识已经定义如下3个值</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>ERROR</td>
+<td>Any data of with this number may be ignored</td>
+</tr>
+<tr>
+<td>1</td>
+<td>MSG_TX</td>
+<td>Hash is related to a transaction</td>
+</tr>
+<tr>
+<td>2</td>
+<td>MSG_BLOCK</td>
+<td>Hash is related to a data block</td>
+</tr>
+<tr>
+<td>3</td>
+<td>MSG_FILTERED_BLOCK</td>
+<td>Hash of a block header; identical to MSG_BLOCK.<br> Only to be used in getdata message.<br> Indicates the reply should be a merkleblock message rather than a block message; <br>this only works if a bloom filter has been set.</td>
+</tr>
+<tr>
+<td>4</td>
+<td>MSG_CMPCT_BLOCK</td>
+<td>Hash of a block header; identical to MSG_BLOCK.<br> Only to be used in getdata message.<br> Indicates the reply should be a cmpctblock message. See BIP 152 for more info.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="1216-block-headers-block">1.2.1.6 Block Headers (Block头部)<a class="headerlink" href="#1216-block-headers-block" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>字段尺寸</th>
+<th>描述</th>
+<th>数据类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4</td>
+<td>version</td>
+<td>uint32_t</td>
+<td>Block版本信息，基于创建该block的软件版本</td>
+</tr>
+<tr>
+<td>32</td>
+<td>prev_block</td>
+<td>char[32]</td>
+<td>该block前一block的散列</td>
+</tr>
+<tr>
+<td>32</td>
+<td>merkle_root</td>
+<td>char[32]</td>
+<td>与该block相关的全部交易之散列(Merkle树)</td>
+</tr>
+<tr>
+<td>4</td>
+<td>timestamp</td>
+<td>uint32_t</td>
+<td>记录block创建时间的时间戳</td>
+</tr>
+<tr>
+<td>4</td>
+<td>bits</td>
+<td>uint32_t</td>
+<td>创建block的计算难度</td>
+</tr>
+<tr>
+<td>4</td>
+<td>nonce</td>
+<td>uint32_t</td>
+<td>用于生成block的临时数据</td>
+</tr>
+<tr>
+<td>1</td>
+<td>txn_count</td>
+<td>uint8_t</td>
+<td>交易数，这个值总是0</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2">2 消息类型<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<h3 id="21-version">2.1 version<a class="headerlink" href="#21-version" title="Permanent link">&para;</a></h3>
+<p>一个节点收到连接请求时，它立即宣告其版本。在通信双方都得到对方版本之前，不会有其他通信</p>
+<table>
+<thead>
+<tr>
+<th>字段尺寸</th>
+<th>描述</th>
+<th>数据类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4</td>
+<td>version</td>
+<td>uint32_t</td>
+<td>节点使用的协议版本标识</td>
+</tr>
+<tr>
+<td>8</td>
+<td>services</td>
+<td>uint64_t</td>
+<td>该连接允许的特性(bitfield)</td>
+</tr>
+<tr>
+<td>8</td>
+<td>timestamp</td>
+<td>uint64_t</td>
+<td>以秒计算的标准UNIX时间戳</td>
+</tr>
+<tr>
+<td>26</td>
+<td>addr_me</td>
+<td>net_addr</td>
+<td>生成此消息的节点的网络地址</td>
+</tr>
+<tr>
+<td>version &gt;= 106</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>26</td>
+<td>addr_you</td>
+<td>net_addr</td>
+<td>接收此消息的节点的网络地址</td>
+</tr>
+<tr>
+<td>8</td>
+<td>nonce</td>
+<td>uint64_t</td>
+<td>节点的随机id，用于侦测这个连接</td>
+</tr>
+<tr>
+<td>?</td>
+<td>sub_version_num</td>
+<td>var_str</td>
+<td>辅助版本信息</td>
+</tr>
+<tr>
+<td>version &gt;= 209</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td>start_height</td>
+<td>uint32_t</td>
+<td>发送节点接收到的最新block</td>
+</tr>
+</tbody>
+</table>
+<h3 id="22-verack">2.2 verack<a class="headerlink" href="#22-verack" title="Permanent link">&para;</a></h3>
+<p>版本不低于209的客户端在应答version消息时发送verack消息</p>
+<h3 id="23-addr">2.3 addr<a class="headerlink" href="#23-addr" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>字段尺寸</th>
+<th>描述</th>
+<th>数据类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1+</td>
+<td>count</td>
+<td>var_int</td>
+<td>地址数</td>
+</tr>
+<tr>
+<td>30x?</td>
+<td>addr_list</td>
+<td>(uint32_t + net_addr)[]</td>
+<td>网络上其他节点的地址，版本低于209时仅读取第一条</td>
+</tr>
+</tbody>
+</table>
+<h3 id="24-inv">2.4 inv<a class="headerlink" href="#24-inv" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>字段尺寸</th>
+<th>描述</th>
+<th>数据类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>?</td>
+<td>count</td>
+<td>var_int</td>
+<td>清单(inventory)数量</td>
+</tr>
+<tr>
+<td>36x?</td>
+<td>inventory</td>
+<td>inv_vect[]</td>
+<td>清单(inventory)数据</td>
+</tr>
+</tbody>
+</table>
+<h3 id="25-getdata">2.5 getdata<a class="headerlink" href="#25-getdata" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>字段尺寸</th>
+<th>描述</th>
+<th>数据类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>?</td>
+<td>count</td>
+<td>var_int</td>
+<td>清单(inventory)数量</td>
+</tr>
+<tr>
+<td>36x?</td>
+<td>inventory</td>
+<td>inv_vect[]</td>
+<td>清单(inventory)数据</td>
+</tr>
+</tbody>
+</table>
+<h3 id="26-getblocks">2.6 getblocks<a class="headerlink" href="#26-getblocks" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>字段尺寸</th>
+<th>描述</th>
+<th>数据类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1+</td>
+<td>start count</td>
+<td>var_int</td>
+<td>hash_start 的数量</td>
+</tr>
+<tr>
+<td>32+</td>
+<td>hash_start</td>
+<td>char[32]</td>
+<td>发送节点已知的最新block散列</td>
+</tr>
+<tr>
+<td>32</td>
+<td>hash_stop</td>
+<td>char[32]</td>
+<td>请求的最后一个block的散列，若要获得尽可能多的block则设为0</td>
+</tr>
+</tbody>
+</table>
+<h3 id="27-getheaders">2.7 getheaders<a class="headerlink" href="#27-getheaders" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>字段尺寸</th>
+<th>描述</th>
+<th>数据类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1+</td>
+<td>start count</td>
+<td>var_int</td>
+<td>hash_start 的数量</td>
+</tr>
+<tr>
+<td>32+</td>
+<td>hash_start</td>
+<td>char[32]</td>
+<td>发送节点已知的最新block散列</td>
+</tr>
+<tr>
+<td>32</td>
+<td>hash_stop</td>
+<td>char[32]</td>
+<td>请求的最后一个block的散列，若要获得尽可能多的block则设为0</td>
+</tr>
+</tbody>
+</table>
+<h3 id="28-tx">2.8 tx<a class="headerlink" href="#28-tx" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>字段尺寸</th>
+<th>描述</th>
+<th>数据类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4</td>
+<td>version</td>
+<td>uint32_t</td>
+<td>交易数据格式版本</td>
+</tr>
+<tr>
+<td>1+</td>
+<td>tx_in count</td>
+<td>var_int</td>
+<td>交易的输入数</td>
+</tr>
+<tr>
+<td>41+</td>
+<td>tx_in</td>
+<td>tx_in[]</td>
+<td>交易输入或比特币来源列表</td>
+</tr>
+<tr>
+<td>1+</td>
+<td>tx_out count</td>
+<td>var_int</td>
+<td>交易的输出数</td>
+</tr>
+<tr>
+<td>8+</td>
+<td>tx_out</td>
+<td>tx_out[]</td>
+<td>交易输出或比特币去向列表</td>
+</tr>
+<tr>
+<td>4</td>
+<td>lock_time</td>
+<td>uint32_t</td>
+<td>锁定交易的期限或block数目。如果为0则交易一直被锁定。未锁定的交易不可包含在block中，并可以在过期前修改(目前bitcon不允许更改交易，所以没有用)</td>
+</tr>
+</tbody>
+</table>
+<p>tx_in</p>
+<table>
+<thead>
+<tr>
+<th>字段尺寸</th>
+<th>描述</th>
+<th>数据类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>36</td>
+<td>previous_output</td>
+<td>outpoint</td>
+<td>对前一输出的引用</td>
+</tr>
+<tr>
+<td>1+</td>
+<td>script length</td>
+<td>var_int</td>
+<td>signature script 的长度</td>
+</tr>
+<tr>
+<td>?</td>
+<td>signature script</td>
+<td>uchar[]</td>
+<td>用于确认交易授权的计算脚本</td>
+</tr>
+<tr>
+<td>4</td>
+<td>sequence</td>
+<td>uint32_t</td>
+<td>发送者定义的交易版本，用于在交易被写入block之前更改交易</td>
+</tr>
+</tbody>
+</table>
+<p>outPoint</p>
+<table>
+<thead>
+<tr>
+<th>字段尺寸</th>
+<th>描述</th>
+<th>数据类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>32</td>
+<td>hash</td>
+<td>char[32]</td>
+<td>引用的交易的散列</td>
+</tr>
+<tr>
+<td>4</td>
+<td>index</td>
+<td>uint32_t</td>
+<td>指定输出的索引，第一笔输出的索引是0，以此类推</td>
+</tr>
+</tbody>
+</table>
+<p>tx_out</p>
+<table>
+<thead>
+<tr>
+<th>字段尺寸</th>
+<th>描述</th>
+<th>数据类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>8</td>
+<td>value</td>
+<td>uint64_t</td>
+<td>交易的比特币数量(单位是0.00000001)</td>
+</tr>
+<tr>
+<td>1+</td>
+<td>pk_script length</td>
+<td>var_int</td>
+<td>pk_script的长度</td>
+</tr>
+<tr>
+<td>?</td>
+<td>pk_script</td>
+<td>uchar[]</td>
+<td>Usually contains the public key as a Bitcoin script setting up conditions to claim this output.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="29-block">2.9 block<a class="headerlink" href="#29-block" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>字段尺寸</th>
+<th>描述</th>
+<th>数据类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4</td>
+<td>version</td>
+<td>uint32_t</td>
+<td>block版本信息，基于生成block的软件版本</td>
+</tr>
+<tr>
+<td>32</td>
+<td>prev_block</td>
+<td>char[32]</td>
+<td>这一block引用的前一block之散列</td>
+</tr>
+<tr>
+<td>32</td>
+<td>merkle_root</td>
+<td>char[32]</td>
+<td>与这一block相关的全部交易之散列(Merkle树)</td>
+</tr>
+<tr>
+<td>4</td>
+<td>timestamp</td>
+<td>uint32_t</td>
+<td>记录block创建时间的时间戳</td>
+</tr>
+<tr>
+<td>4</td>
+<td>bits</td>
+<td>uint32_t</td>
+<td>这一block的计算难度</td>
+</tr>
+<tr>
+<td>4</td>
+<td>nonce</td>
+<td>uint32_t</td>
+<td>用于生成这一block的nonce值</td>
+</tr>
+<tr>
+<td>?</td>
+<td>txn_count</td>
+<td>var_int</td>
+<td>交易数量</td>
+</tr>
+<tr>
+<td>?</td>
+<td>txns</td>
+<td>tx[]</td>
+<td>交易，以tx格式存储</td>
+</tr>
+</tbody>
+</table>
+<h3 id="210-headers">2.10 headers<a class="headerlink" href="#210-headers" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>字段尺寸</th>
+<th>描述</th>
+<th>数据类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>?</td>
+<td>count</td>
+<td>var_int</td>
+<td>block头数量</td>
+</tr>
+<tr>
+<td>77x?</td>
+<td>headers</td>
+<td>block_header[]</td>
+<td>block头</td>
+</tr>
+</tbody>
+</table>
+<h3 id="211-getaddr">2.11 getaddr<a class="headerlink" href="#211-getaddr" title="Permanent link">&para;</a></h3>
+<p>!!! question getaddr 似乎也没有消息体?</p>
+<h3 id="212-checkorder">2.12 checkorder<a class="headerlink" href="#212-checkorder" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>字段尺寸</th>
+<th>描述</th>
+<th>数据类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fields from CMerkleTx</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>?</td>
+<td>hashBlock</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>?</td>
+<td>vMerkleBranch</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>?</td>
+<td>nIndex</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Fields from CWalletTx</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>?</td>
+<td>vtxPrev</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>?</td>
+<td>mapValue</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>?</td>
+<td>vOrderForm</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>?</td>
+<td>fTimeReceivedIsTxTime</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>?</td>
+<td>nTimeReceived</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>?</td>
+<td>fFromMe</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>?</td>
+<td>fSpent</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="213-submitorder">2.13 submitorder<a class="headerlink" href="#213-submitorder" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>字段尺寸</th>
+<th>描述</th>
+<th>数据类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>32</td>
+<td>hash</td>
+<td>char[32]</td>
+<td>交易散列</td>
+</tr>
+<tr>
+<td>?</td>
+<td>wallet_entry</td>
+<td>CWalletTx</td>
+<td>与checkorder的payload相同</td>
+</tr>
+</tbody>
+</table>
+<h3 id="214-reply">2.14 reply<a class="headerlink" href="#214-reply" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>字段尺寸</th>
+<th>描述</th>
+<th>数据类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4</td>
+<td>reply</td>
+<td>uint32_t</td>
+<td>应答代码</td>
+</tr>
+</tbody>
+</table>
+<p>可能值:</p>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>SUCCESS</td>
+<td>IP Transaction可以执行(回应checkorder)或已经被接受(回应submitorder)</td>
+</tr>
+<tr>
+<td>1</td>
+<td>WALLET_ERROR</td>
+<td>AcceptWalletTransaction()失败</td>
+</tr>
+<tr>
+<td>2</td>
+<td>DENIED</td>
+<td>此节点不接受IP Transactions</td>
+</tr>
+</tbody>
+</table>
+<h3 id="215-ping">2.15 ping<a class="headerlink" href="#215-ping" title="Permanent link">&para;</a></h3>
+<h3 id="216-alert">2.16 alert<a class="headerlink" href="#216-alert" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>字段尺寸</th>
+<th>描述</th>
+<th>数据类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>?</td>
+<td>message</td>
+<td>var_str</td>
+<td>向网络中所有节点发出的系统消息</td>
+</tr>
+<tr>
+<td>?</td>
+<td>signature</td>
+<td>var_str</td>
+<td>可由公钥验证Satoshi授权或创建了此信息的签名</td>
+</tr>
+</tbody>
+</table>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../structure/" title="结构" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                结构
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../sync/" title="同步" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                同步
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.583bbe55.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
+      
+        <script src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js"></script>
+      
+        <script src="../../js/material_nav_extend.js"></script>
+      
+    
+    
+      
+    
+  </body>
+</html>

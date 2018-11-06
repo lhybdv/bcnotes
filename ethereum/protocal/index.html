@@ -1,0 +1,1018 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="刘挥宇的学习笔记">
+      
+      
+        <link rel="canonical" href="https://lhybdv.github.io/bcnotes/ethereum/protocal/">
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-3.0.4">
+    
+    
+      
+        <title>通信协议 - 区块链数据存储与同步</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.451f80e5.css">
+      
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+      <link rel="stylesheet" href="https://unpkg.com/mermaid@7.1.2/dist/mermaid.css">
+    
+    
+  </head>
+  
+    <body dir="ltr">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="../../#_1" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://lhybdv.github.io/bcnotes" title="区块链数据存储与同步" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                区块链数据存储与同步
+              </span>
+              <span class="md-header-nav__topic">
+                通信协议
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://lhybdv.github.io/bcnotes" title="区块链数据存储与同步" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    区块链数据存储与同步
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1">
+    
+    <label class="md-nav__link" for="nav-1">
+      比特币
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-1">
+        比特币
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../bitcoin/structure/" title="结构" class="md-nav__link">
+      结构
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../bitcoin/protocal/" title="通信协议" class="md-nav__link">
+      通信协议
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../bitcoin/sync/" title="同步" class="md-nav__link">
+      同步
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../bitcoin/QA/" title="QA" class="md-nav__link">
+      QA
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+    
+    <label class="md-nav__link" for="nav-2">
+      以太坊
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        以太坊
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../structure/" title="结构" class="md-nav__link">
+      结构
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        通信协议
+      </label>
+    
+    <a href="./" title="通信协议" class="md-nav__link md-nav__link--active">
+      通信协议
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-msg" title="1 Msg" class="md-nav__link">
+    1 Msg
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-getblockheaders" title="2 GetBlockHeaders" class="md-nav__link">
+    2 GetBlockHeaders
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-blockheadersmsg" title="3 BlockHeadersMsg" class="md-nav__link">
+    3 BlockHeadersMsg
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-getblockbodiesmsg" title="4 GetBlockBodiesMsg" class="md-nav__link">
+    4 GetBlockBodiesMsg
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-blockbodiesmsg" title="5 BlockBodiesMsg" class="md-nav__link">
+    5 BlockBodiesMsg
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-getnodedatamsg" title="6 GetNodeDataMsg" class="md-nav__link">
+    6 GetNodeDataMsg
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-nodedatamsg" title="7 NodeDataMsg" class="md-nav__link">
+    7 NodeDataMsg
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-getreceiptsmsg" title="8 GetReceiptsMsg" class="md-nav__link">
+    8 GetReceiptsMsg
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-receiptsmsg" title="9 ReceiptsMsg" class="md-nav__link">
+    9 ReceiptsMsg
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-newblockhashesmsg" title="10 NewBlockHashesMsg" class="md-nav__link">
+    10 NewBlockHashesMsg
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-newblockmsg" title="11 NewBlockMsg" class="md-nav__link">
+    11 NewBlockMsg
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-txmsg" title="12 TxMsg" class="md-nav__link">
+    12 TxMsg
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../sync/" title="同步" class="md-nav__link">
+      同步
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../QA/" title="QA" class="md-nav__link">
+      QA
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      超级账本
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        超级账本
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../hyperledger/structure.md" title="结构" class="md-nav__link">
+      结构
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../hyperledger/protocal.md" title="通信协议" class="md-nav__link">
+      通信协议
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../hyperledger/sync.md" title="同步" class="md-nav__link">
+      同步
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../hyperledger/QA.md" title="QA" class="md-nav__link">
+      QA
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      EOS
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        EOS
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../eos/structure/" title="结构" class="md-nav__link">
+      结构
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../eos/protocal.md" title="通信协议" class="md-nav__link">
+      通信协议
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../eos/sync.md" title="同步" class="md-nav__link">
+      同步
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../eos/QA.md" title="QA" class="md-nav__link">
+      QA
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Trias
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Trias
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../trias/datastore/" title="数据层" class="md-nav__link">
+      数据层
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-msg" title="1 Msg" class="md-nav__link">
+    1 Msg
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-getblockheaders" title="2 GetBlockHeaders" class="md-nav__link">
+    2 GetBlockHeaders
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-blockheadersmsg" title="3 BlockHeadersMsg" class="md-nav__link">
+    3 BlockHeadersMsg
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-getblockbodiesmsg" title="4 GetBlockBodiesMsg" class="md-nav__link">
+    4 GetBlockBodiesMsg
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-blockbodiesmsg" title="5 BlockBodiesMsg" class="md-nav__link">
+    5 BlockBodiesMsg
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-getnodedatamsg" title="6 GetNodeDataMsg" class="md-nav__link">
+    6 GetNodeDataMsg
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-nodedatamsg" title="7 NodeDataMsg" class="md-nav__link">
+    7 NodeDataMsg
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-getreceiptsmsg" title="8 GetReceiptsMsg" class="md-nav__link">
+    8 GetReceiptsMsg
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-receiptsmsg" title="9 ReceiptsMsg" class="md-nav__link">
+    9 ReceiptsMsg
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-newblockhashesmsg" title="10 NewBlockHashesMsg" class="md-nav__link">
+    10 NewBlockHashesMsg
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-newblockmsg" title="11 NewBlockMsg" class="md-nav__link">
+    11 NewBlockMsg
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-txmsg" title="12 TxMsg" class="md-nav__link">
+    12 TxMsg
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="_1">以太坊协议<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h2 id="1-msg">1 Msg<a class="headerlink" href="#1-msg" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><span class="kd">type</span> <span class="nx">Msg</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">Code</span>       <span class="kt">uint64</span>
+    <span class="nx">Size</span>       <span class="kt">uint32</span> <span class="c1">// size of the paylod</span>
+    <span class="nx">Payload</span>    <span class="nx">io</span><span class="p">.</span><span class="nx">Reader</span>
+    <span class="nx">ReceivedAt</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+<span class="p">}</span>
+</pre></div>
+
+<div class="codehilite"><pre><span></span><span class="kd">const</span> <span class="p">(</span>
+    <span class="c1">// Protocol messages belonging to eth/62</span>
+    <span class="nx">StatusMsg</span>          <span class="p">=</span> <span class="mh">0x00</span>
+    <span class="nx">NewBlockHashesMsg</span>  <span class="p">=</span> <span class="mh">0x01</span>
+    <span class="nx">TxMsg</span>              <span class="p">=</span> <span class="mh">0x02</span>
+    <span class="nx">GetBlockHeadersMsg</span> <span class="p">=</span> <span class="mh">0x03</span>
+    <span class="nx">BlockHeadersMsg</span>    <span class="p">=</span> <span class="mh">0x04</span>
+    <span class="nx">GetBlockBodiesMsg</span>  <span class="p">=</span> <span class="mh">0x05</span>
+    <span class="nx">BlockBodiesMsg</span>     <span class="p">=</span> <span class="mh">0x06</span>
+    <span class="nx">NewBlockMsg</span>        <span class="p">=</span> <span class="mh">0x07</span>
+
+    <span class="c1">// Protocol messages belonging to eth/63</span>
+    <span class="nx">GetNodeDataMsg</span> <span class="p">=</span> <span class="mh">0x0d</span>
+    <span class="nx">NodeDataMsg</span>    <span class="p">=</span> <span class="mh">0x0e</span>
+    <span class="nx">GetReceiptsMsg</span> <span class="p">=</span> <span class="mh">0x0f</span>
+    <span class="nx">ReceiptsMsg</span>    <span class="p">=</span> <span class="mh">0x10</span>
+<span class="p">)</span>
+</pre></div>
+
+<div class="admonition note">
+<p class="admonition-title">Code</p>
+<p>相当于 比特币 的 "command"，但是明显 "Code" 的可扩展性要好的多，但是要求必须都约定好每个数字对应的命令是什么</p>
+</div>
+<h2 id="2-getblockheaders">2 GetBlockHeaders<a class="headerlink" href="#2-getblockheaders" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><span class="kd">type</span> <span class="nx">getBlockHeadersData</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">Origin</span>  <span class="nx">hashOrNumber</span> <span class="c1">// Block from which to retrieve headers</span>
+    <span class="nx">Amount</span>  <span class="kt">uint64</span>       <span class="c1">// Maximum number of headers to retrieve</span>
+    <span class="nx">Skip</span>    <span class="kt">uint64</span>       <span class="c1">// Blocks to skip between consecutive headers</span>
+    <span class="nx">Reverse</span> <span class="kt">bool</span>         <span class="c1">// Query direction (false = rising towards latest, true = falling towards genesis)</span>
+<span class="p">}</span>
+
+<span class="c1">// hashOrNumber is a combined field for specifying an origin block.</span>
+<span class="kd">type</span> <span class="nx">hashOrNumber</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">Hash</span>   <span class="nx">common</span><span class="p">.</span><span class="nx">Hash</span> <span class="c1">// Block hash from which to retrieve headers (excludes Number)</span>
+    <span class="nx">Number</span> <span class="kt">uint64</span>      <span class="c1">// Block hash from which to retrieve headers (excludes Hash)</span>
+<span class="p">}</span>
+</pre></div>
+
+<h2 id="3-blockheadersmsg">3 BlockHeadersMsg<a class="headerlink" href="#3-blockheadersmsg" title="Permanent link">&para;</a></h2>
+<p>Header 数组</p>
+<div class="codehilite"><pre><span></span><span class="kd">type</span> <span class="nx">Header</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">ParentHash</span>  <span class="nx">common</span><span class="p">.</span><span class="nx">Hash</span>    <span class="s">`json:&quot;parentHash&quot;       gencodec:&quot;required&quot;`</span>
+    <span class="nx">UncleHash</span>   <span class="nx">common</span><span class="p">.</span><span class="nx">Hash</span>    <span class="s">`json:&quot;sha3Uncles&quot;       gencodec:&quot;required&quot;`</span>
+    <span class="nx">Coinbase</span>    <span class="nx">common</span><span class="p">.</span><span class="nx">Address</span> <span class="s">`json:&quot;miner&quot;            gencodec:&quot;required&quot;`</span>
+    <span class="nx">Root</span>        <span class="nx">common</span><span class="p">.</span><span class="nx">Hash</span>    <span class="s">`json:&quot;stateRoot&quot;        gencodec:&quot;required&quot;`</span>
+    <span class="nx">TxHash</span>      <span class="nx">common</span><span class="p">.</span><span class="nx">Hash</span>    <span class="s">`json:&quot;transactionsRoot&quot; gencodec:&quot;required&quot;`</span>
+    <span class="nx">ReceiptHash</span> <span class="nx">common</span><span class="p">.</span><span class="nx">Hash</span>    <span class="s">`json:&quot;receiptsRoot&quot;     gencodec:&quot;required&quot;`</span>
+    <span class="nx">Bloom</span>       <span class="nx">Bloom</span>          <span class="s">`json:&quot;logsBloom&quot;        gencodec:&quot;required&quot;`</span>
+    <span class="nx">Difficulty</span>  <span class="o">*</span><span class="nx">big</span><span class="p">.</span><span class="nx">Int</span>       <span class="s">`json:&quot;difficulty&quot;       gencodec:&quot;required&quot;`</span>
+    <span class="nx">Number</span>      <span class="o">*</span><span class="nx">big</span><span class="p">.</span><span class="nx">Int</span>       <span class="s">`json:&quot;number&quot;           gencodec:&quot;required&quot;`</span>
+    <span class="nx">GasLimit</span>    <span class="kt">uint64</span>         <span class="s">`json:&quot;gasLimit&quot;         gencodec:&quot;required&quot;`</span>
+    <span class="nx">GasUsed</span>     <span class="kt">uint64</span>         <span class="s">`json:&quot;gasUsed&quot;          gencodec:&quot;required&quot;`</span>
+    <span class="nx">Time</span>        <span class="o">*</span><span class="nx">big</span><span class="p">.</span><span class="nx">Int</span>       <span class="s">`json:&quot;timestamp&quot;        gencodec:&quot;required&quot;`</span>
+    <span class="nx">Extra</span>       <span class="p">[]</span><span class="kt">byte</span>         <span class="s">`json:&quot;extraData&quot;        gencodec:&quot;required&quot;`</span>
+    <span class="nx">MixDigest</span>   <span class="nx">common</span><span class="p">.</span><span class="nx">Hash</span>    <span class="s">`json:&quot;mixHash&quot;          gencodec:&quot;required&quot;`</span>
+    <span class="nx">Nonce</span>       <span class="nx">BlockNonce</span>     <span class="s">`json:&quot;nonce&quot;            gencodec:&quot;required&quot;`</span>
+<span class="p">}</span>
+</pre></div>
+
+<h2 id="4-getblockbodiesmsg">4 GetBlockBodiesMsg<a class="headerlink" href="#4-getblockbodiesmsg" title="Permanent link">&para;</a></h2>
+<p>Hash (32 bytes) 数组 </p>
+<h2 id="5-blockbodiesmsg">5 BlockBodiesMsg<a class="headerlink" href="#5-blockbodiesmsg" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><span class="c1">// blockBodiesData is the network packet for block content distribution.</span>
+<span class="kd">type</span> <span class="nx">blockBodiesData</span> <span class="p">[]</span><span class="o">*</span><span class="nx">blockBody</span>
+</pre></div>
+
+<div class="codehilite"><pre><span></span><span class="c1">// blockBody represents the data content of a single block.</span>
+<span class="kd">type</span> <span class="nx">blockBody</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">Transactions</span> <span class="p">[]</span><span class="o">*</span><span class="nx">types</span><span class="p">.</span><span class="nx">Transaction</span> <span class="c1">// Transactions contained within a block</span>
+    <span class="nx">Uncles</span>       <span class="p">[]</span><span class="o">*</span><span class="nx">types</span><span class="p">.</span><span class="nx">Header</span>      <span class="c1">// Uncles contained within a block</span>
+<span class="p">}</span>
+</pre></div>
+
+<div class="codehilite"><pre><span></span><span class="kd">type</span> <span class="nx">Transaction</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">data</span> <span class="nx">txdata</span>
+    <span class="c1">// caches</span>
+    <span class="nx">hash</span> <span class="nx">atomic</span><span class="p">.</span><span class="nx">Value</span>
+    <span class="nx">size</span> <span class="nx">atomic</span><span class="p">.</span><span class="nx">Value</span>
+    <span class="nx">from</span> <span class="nx">atomic</span><span class="p">.</span><span class="nx">Value</span>
+<span class="p">}</span>
+</pre></div>
+
+<div class="codehilite"><pre><span></span><span class="kd">type</span> <span class="nx">txdata</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">AccountNonce</span> <span class="kt">uint64</span>          <span class="s">`json:&quot;nonce&quot;    gencodec:&quot;required&quot;`</span>
+    <span class="nx">Price</span>        <span class="o">*</span><span class="nx">big</span><span class="p">.</span><span class="nx">Int</span>        <span class="s">`json:&quot;gasPrice&quot; gencodec:&quot;required&quot;`</span>
+    <span class="nx">GasLimit</span>     <span class="kt">uint64</span>          <span class="s">`json:&quot;gas&quot;      gencodec:&quot;required&quot;`</span>
+    <span class="nx">Recipient</span>    <span class="o">*</span><span class="nx">common</span><span class="p">.</span><span class="nx">Address</span> <span class="s">`json:&quot;to&quot;       rlp:&quot;nil&quot;`</span> <span class="c1">// nil means contract creation</span>
+    <span class="nx">Amount</span>       <span class="o">*</span><span class="nx">big</span><span class="p">.</span><span class="nx">Int</span>        <span class="s">`json:&quot;value&quot;    gencodec:&quot;required&quot;`</span>
+    <span class="nx">Payload</span>      <span class="p">[]</span><span class="kt">byte</span>          <span class="s">`json:&quot;input&quot;    gencodec:&quot;required&quot;`</span>
+
+    <span class="c1">// Signature values</span>
+    <span class="nx">V</span> <span class="o">*</span><span class="nx">big</span><span class="p">.</span><span class="nx">Int</span> <span class="s">`json:&quot;v&quot; gencodec:&quot;required&quot;`</span>
+    <span class="nx">R</span> <span class="o">*</span><span class="nx">big</span><span class="p">.</span><span class="nx">Int</span> <span class="s">`json:&quot;r&quot; gencodec:&quot;required&quot;`</span>
+    <span class="nx">S</span> <span class="o">*</span><span class="nx">big</span><span class="p">.</span><span class="nx">Int</span> <span class="s">`json:&quot;s&quot; gencodec:&quot;required&quot;`</span>
+
+    <span class="c1">// This is only used when marshaling to JSON.</span>
+    <span class="nx">Hash</span> <span class="o">*</span><span class="nx">common</span><span class="p">.</span><span class="nx">Hash</span> <span class="s">`json:&quot;hash&quot; rlp:&quot;-&quot;`</span>
+<span class="p">}</span>
+</pre></div>
+
+<h2 id="6-getnodedatamsg">6 GetNodeDataMsg<a class="headerlink" href="#6-getnodedatamsg" title="Permanent link">&para;</a></h2>
+<p>Hash 数组</p>
+<h2 id="7-nodedatamsg">7 NodeDataMsg<a class="headerlink" href="#7-nodedatamsg" title="Permanent link">&para;</a></h2>
+<p>byte 2 维数组</p>
+<h2 id="8-getreceiptsmsg">8 GetReceiptsMsg<a class="headerlink" href="#8-getreceiptsmsg" title="Permanent link">&para;</a></h2>
+<p>Hash 数组</p>
+<h2 id="9-receiptsmsg">9 ReceiptsMsg<a class="headerlink" href="#9-receiptsmsg" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><span class="c1">// Receipt represents the results of a transaction.</span>
+<span class="kd">type</span> <span class="nx">Receipt</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="c1">// Consensus fields</span>
+    <span class="nx">PostState</span>         <span class="p">[]</span><span class="kt">byte</span> <span class="s">`json:&quot;root&quot;`</span>
+    <span class="nx">Status</span>            <span class="kt">uint64</span> <span class="s">`json:&quot;status&quot;`</span>
+    <span class="nx">CumulativeGasUsed</span> <span class="kt">uint64</span> <span class="s">`json:&quot;cumulativeGasUsed&quot; gencodec:&quot;required&quot;`</span>
+    <span class="nx">Bloom</span>             <span class="nx">Bloom</span>  <span class="s">`json:&quot;logsBloom&quot;         gencodec:&quot;required&quot;`</span> <span class="c1">// 256 bytes</span>
+    <span class="nx">Logs</span>              <span class="p">[]</span><span class="o">*</span><span class="nx">Log</span> <span class="s">`json:&quot;logs&quot;              gencodec:&quot;required&quot;`</span>
+
+    <span class="c1">// Implementation fields (don&#39;t reorder!)</span>
+    <span class="nx">TxHash</span>          <span class="nx">common</span><span class="p">.</span><span class="nx">Hash</span>    <span class="s">`json:&quot;transactionHash&quot; gencodec:&quot;required&quot;`</span>
+    <span class="nx">ContractAddress</span> <span class="nx">common</span><span class="p">.</span><span class="nx">Address</span> <span class="s">`json:&quot;contractAddress&quot;`</span> <span class="c1">// 20 bytes</span>
+    <span class="nx">GasUsed</span>         <span class="kt">uint64</span>         <span class="s">`json:&quot;gasUsed&quot; gencodec:&quot;required&quot;`</span>
+<span class="p">}</span>
+</pre></div>
+
+<div class="codehilite"><pre><span></span><span class="c1">// Log represents a contract log event. These events are generated by the LOG opcode and</span>
+<span class="c1">// stored/indexed by the node.</span>
+<span class="kd">type</span> <span class="nx">Log</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="c1">// Consensus fields:</span>
+    <span class="c1">// address of the contract that generated the event</span>
+    <span class="nx">Address</span> <span class="nx">common</span><span class="p">.</span><span class="nx">Address</span> <span class="s">`json:&quot;address&quot; gencodec:&quot;required&quot;`</span>
+    <span class="c1">// list of topics provided by the contract.</span>
+    <span class="nx">Topics</span> <span class="p">[]</span><span class="nx">common</span><span class="p">.</span><span class="nx">Hash</span> <span class="s">`json:&quot;topics&quot; gencodec:&quot;required&quot;`</span>
+    <span class="c1">// supplied by the contract, usually ABI-encoded</span>
+    <span class="nx">Data</span> <span class="p">[]</span><span class="kt">byte</span> <span class="s">`json:&quot;data&quot; gencodec:&quot;required&quot;`</span>
+
+    <span class="c1">// Derived fields. These fields are filled in by the node</span>
+    <span class="c1">// but not secured by consensus.</span>
+    <span class="c1">// block in which the transaction was included</span>
+    <span class="nx">BlockNumber</span> <span class="kt">uint64</span> <span class="s">`json:&quot;blockNumber&quot;`</span>
+    <span class="c1">// hash of the transaction</span>
+    <span class="nx">TxHash</span> <span class="nx">common</span><span class="p">.</span><span class="nx">Hash</span> <span class="s">`json:&quot;transactionHash&quot; gencodec:&quot;required&quot;`</span>
+    <span class="c1">// index of the transaction in the block</span>
+    <span class="nx">TxIndex</span> <span class="kt">uint</span> <span class="s">`json:&quot;transactionIndex&quot; gencodec:&quot;required&quot;`</span>
+    <span class="c1">// hash of the block in which the transaction was included</span>
+    <span class="nx">BlockHash</span> <span class="nx">common</span><span class="p">.</span><span class="nx">Hash</span> <span class="s">`json:&quot;blockHash&quot;`</span>
+    <span class="c1">// index of the log in the block</span>
+    <span class="nx">Index</span> <span class="kt">uint</span> <span class="s">`json:&quot;logIndex&quot; gencodec:&quot;required&quot;`</span>
+
+    <span class="c1">// The Removed field is true if this log was reverted due to a chain reorganisation.</span>
+    <span class="c1">// You must pay attention to this field if you receive logs through a filter query.</span>
+    <span class="nx">Removed</span> <span class="kt">bool</span> <span class="s">`json:&quot;removed&quot;`</span>
+<span class="p">}</span>
+</pre></div>
+
+<h2 id="10-newblockhashesmsg">10 NewBlockHashesMsg<a class="headerlink" href="#10-newblockhashesmsg" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><span class="c1">// newBlockHashesData is the network packet for the block announcements.</span>
+<span class="kd">type</span> <span class="nx">newBlockHashesData</span> <span class="p">[]</span><span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">Hash</span>   <span class="nx">common</span><span class="p">.</span><span class="nx">Hash</span> <span class="c1">// Hash of one particular block being announced</span>
+    <span class="nx">Number</span> <span class="kt">uint64</span>      <span class="c1">// Number of one particular block being announced</span>
+<span class="p">}</span>
+</pre></div>
+
+<h2 id="11-newblockmsg">11 NewBlockMsg<a class="headerlink" href="#11-newblockmsg" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><span class="kd">type</span> <span class="nx">newBlockData</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">Block</span> <span class="o">*</span><span class="nx">types</span><span class="p">.</span><span class="nx">Block</span>
+    <span class="nx">TD</span>    <span class="o">*</span><span class="nx">big</span><span class="p">.</span><span class="nx">Int</span>
+<span class="p">}</span>
+</pre></div>
+
+<div class="codehilite"><pre><span></span><span class="c1">// Block represents an entire block in the Ethereum blockchain.</span>
+<span class="kd">type</span> <span class="nx">Block</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">header</span>       <span class="o">*</span><span class="nx">Header</span>
+    <span class="nx">uncles</span>       <span class="p">[]</span><span class="o">*</span><span class="nx">Header</span>
+    <span class="nx">transactions</span> <span class="nx">Transactions</span>
+
+    <span class="c1">// caches</span>
+    <span class="nx">hash</span> <span class="nx">atomic</span><span class="p">.</span><span class="nx">Value</span>
+    <span class="nx">size</span> <span class="nx">atomic</span><span class="p">.</span><span class="nx">Value</span>
+
+    <span class="c1">// Td is used by package core to store the total difficulty</span>
+    <span class="c1">// of the chain up to and including the block.</span>
+    <span class="nx">td</span> <span class="o">*</span><span class="nx">big</span><span class="p">.</span><span class="nx">Int</span>
+
+    <span class="c1">// These fields are used by package eth to track</span>
+    <span class="c1">// inter-peer block relay.</span>
+    <span class="nx">ReceivedAt</span>   <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+    <span class="nx">ReceivedFrom</span> <span class="kd">interface</span><span class="p">{}</span>
+<span class="p">}</span>
+</pre></div>
+
+<h2 id="12-txmsg">12 TxMsg<a class="headerlink" href="#12-txmsg" title="Permanent link">&para;</a></h2>
+<p>Transaction 数组</p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../structure/" title="结构" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                结构
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../sync/" title="同步" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                同步
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.583bbe55.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
+      
+        <script src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js"></script>
+      
+        <script src="../../js/material_nav_extend.js"></script>
+      
+    
+    
+      
+    
+  </body>
+</html>

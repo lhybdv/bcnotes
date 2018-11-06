@@ -1,0 +1,942 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="刘挥宇的学习笔记">
+      
+      
+        <link rel="canonical" href="https://lhybdv.github.io/bcnotes/ethereum/structure/">
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-3.0.4">
+    
+    
+      
+        <title>结构 - 区块链数据存储与同步</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.451f80e5.css">
+      
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+      <link rel="stylesheet" href="https://unpkg.com/mermaid@7.1.2/dist/mermaid.css">
+    
+    
+  </head>
+  
+    <body dir="ltr">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="../../#_1" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://lhybdv.github.io/bcnotes" title="区块链数据存储与同步" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                区块链数据存储与同步
+              </span>
+              <span class="md-header-nav__topic">
+                结构
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://lhybdv.github.io/bcnotes" title="区块链数据存储与同步" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    区块链数据存储与同步
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1">
+    
+    <label class="md-nav__link" for="nav-1">
+      比特币
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-1">
+        比特币
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../bitcoin/structure/" title="结构" class="md-nav__link">
+      结构
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../bitcoin/protocal/" title="通信协议" class="md-nav__link">
+      通信协议
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../bitcoin/sync/" title="同步" class="md-nav__link">
+      同步
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../bitcoin/QA/" title="QA" class="md-nav__link">
+      QA
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+    
+    <label class="md-nav__link" for="nav-2">
+      以太坊
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        以太坊
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        结构
+      </label>
+    
+    <a href="./" title="结构" class="md-nav__link md-nav__link--active">
+      结构
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-rlp" title="1 以太坊中的序列化方法RLP" class="md-nav__link">
+    1 以太坊中的序列化方法RLP
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-rlp" title="1.1 RLP" class="md-nav__link">
+    1.1 RLP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-sha3" title="1.2 以太坊中的SHA3计算" class="md-nav__link">
+    1.2 以太坊中的SHA3计算
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" title="2 区块的组成" class="md-nav__link">
+    2 区块的组成
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" title="2.1 三部分组成" class="md-nav__link">
+    2.1 三部分组成
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" title="2.2 区块头结构" class="md-nav__link">
+    2.2 区块头结构
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-mpt" title="2.3 MPT" class="md-nav__link">
+    2.3 MPT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#231-4" title="2.3.1 4 种节点" class="md-nav__link">
+    2.3.1 4 种节点
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../protocal/" title="通信协议" class="md-nav__link">
+      通信协议
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../sync/" title="同步" class="md-nav__link">
+      同步
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../QA/" title="QA" class="md-nav__link">
+      QA
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      超级账本
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        超级账本
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../hyperledger/structure.md" title="结构" class="md-nav__link">
+      结构
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../hyperledger/protocal.md" title="通信协议" class="md-nav__link">
+      通信协议
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../hyperledger/sync.md" title="同步" class="md-nav__link">
+      同步
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../hyperledger/QA.md" title="QA" class="md-nav__link">
+      QA
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      EOS
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        EOS
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../eos/structure/" title="结构" class="md-nav__link">
+      结构
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../eos/protocal.md" title="通信协议" class="md-nav__link">
+      通信协议
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../eos/sync.md" title="同步" class="md-nav__link">
+      同步
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../eos/QA.md" title="QA" class="md-nav__link">
+      QA
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Trias
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Trias
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../trias/datastore/" title="数据层" class="md-nav__link">
+      数据层
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-rlp" title="1 以太坊中的序列化方法RLP" class="md-nav__link">
+    1 以太坊中的序列化方法RLP
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-rlp" title="1.1 RLP" class="md-nav__link">
+    1.1 RLP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-sha3" title="1.2 以太坊中的SHA3计算" class="md-nav__link">
+    1.2 以太坊中的SHA3计算
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" title="2 区块的组成" class="md-nav__link">
+    2 区块的组成
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" title="2.1 三部分组成" class="md-nav__link">
+    2.1 三部分组成
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" title="2.2 区块头结构" class="md-nav__link">
+    2.2 区块头结构
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-mpt" title="2.3 MPT" class="md-nav__link">
+    2.3 MPT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#231-4" title="2.3.1 4 种节点" class="md-nav__link">
+    2.3.1 4 种节点
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="_1">以太坊数据结构<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h2 id="1-rlp">1 以太坊中的序列化方法RLP<a class="headerlink" href="#1-rlp" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>RLP(Recursive Length Prefix)可以将任意的数据编码称二进制byte的数组，即[]byte的形式。同时已知数据的RLP编码结果，可以求出其原来的形式</p>
+</blockquote>
+<h3 id="11-rlp">1.1 RLP<a class="headerlink" href="#11-rlp" title="Permanent link">&para;</a></h3>
+<p><a href="https://github.com/ethereum/wiki/wiki/RLP">RLR 说明</a></p>
+<h3 id="12-sha3">1.2 以太坊中的SHA3计算<a class="headerlink" href="#12-sha3" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>encode(data)=SHA3(RLP(data))
+</pre></div>
+
+<h2 id="2">2 区块的组成<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<h3 id="21">2.1 三部分组成<a class="headerlink" href="#21" title="Permanent link">&para;</a></h3>
+<ol>
+<li>区块头（Block Header）</li>
+<li>叔块（Uncle）</li>
+<li>交易列表（tx_List）</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">叔块</p>
+<ol>
+<li>以太坊每 10 几秒产生一个区块，这样就会有大量的 "孤块" 存在。</li>
+<li>如果 "孤块" 都 <em>不被</em> 承认，可能会有很多计算力小的节点退出，导致以太坊趋于 "中心化"，不够安全</li>
+<li>"孤块" 如何被承认为 "叔块" 呢? 就是被之后的 "新块" 在打包的时候，包含进去，这样 "新块" 被认可的时候，"叔块" 也得到了认可。</li>
+<li>"新块" 为什么会愿意打包 "叔块" 呢，因为有奖励</li>
+<li>"叔块" 的创建者也会有奖励，这样，算力小，网速慢 的一些节点也不会 "白忙"，整个系统更 “公平"，更 "去中心化"</li>
+</ol>
+</div>
+<h3 id="22">2.2 区块头结构<a class="headerlink" href="#22" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>parentHash</td>
+<td>common.Hash</td>
+<td>父区块的哈希值</td>
+</tr>
+<tr>
+<td>UncleHash</td>
+<td>common.Hash</td>
+<td>叔父区块列表的哈希值</td>
+</tr>
+<tr>
+<td>Coinbase</td>
+<td>common.Address</td>
+<td>打包该区块的矿工的地址，用于接收矿工费</td>
+</tr>
+<tr>
+<td>Root</td>
+<td>common.Hash</td>
+<td>状态树的根哈希值</td>
+</tr>
+<tr>
+<td>TxHash</td>
+<td>common.Hash</td>
+<td>交易树的根哈希值</td>
+</tr>
+<tr>
+<td>ReceiptHash</td>
+<td>common.Hash</td>
+<td>收据树的根哈希值</td>
+</tr>
+<tr>
+<td>Bloom</td>
+<td>Bloom</td>
+<td>交易收据日志组成的Bloom过滤器</td>
+</tr>
+<tr>
+<td>Difficuty</td>
+<td>*Big.Int</td>
+<td>本区块的难度</td>
+</tr>
+<tr>
+<td>Number</td>
+<td>*Big.Int</td>
+<td>本区块块号，区块号从 0 开始算起</td>
+</tr>
+<tr>
+<td>GasLimit</td>
+<td>uint64</td>
+<td>本区块中所有交易消耗的 Gas 上限，这个数值<em>不等于</em>所有交易中的 GasLimit字段的和</td>
+</tr>
+<tr>
+<td>GasUsed</td>
+<td>uint64</td>
+<td>本区块中所有交易使用的 Gas 的和</td>
+</tr>
+<tr>
+<td>Time</td>
+<td>*Big.Int</td>
+<td>区块产生的 unix 时间戳，一般是打包区块的时间，这个字段不是出块的时间戳</td>
+</tr>
+<tr>
+<td>Extra</td>
+<td>[]byte</td>
+<td>区块的附加数据</td>
+</tr>
+<tr>
+<td>MixDigest</td>
+<td>common.Hash</td>
+<td>哈希值，与 Nonce 的组合用于工作量计算</td>
+</tr>
+<tr>
+<td>Nonce</td>
+<td>BlockNonce</td>
+<td>区块产生是的随机值</td>
+</tr>
+</tbody>
+</table>
+<h3 id="23-mpt">2.3 MPT<a class="headerlink" href="#23-mpt" title="Permanent link">&para;</a></h3>
+<p>融合了 Merkle Tree，Patricia Tree (源于 Trie Tree)</p>
+<h3 id="231-4">2.3.1 4 种节点<a class="headerlink" href="#231-4" title="Permanent link">&para;</a></h3>
+<ol>
+<li>fullNode</li>
+<li>shorNode</li>
+<li>valueNode</li>
+<li>hashNode</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">fullNode</p>
+<ol>
+<li>fullNode 是一个可以携带多个子节点的父(枝)节点。</li>
+<li>它有一个容量为17的node数组成员变量Children，数组中前16个空位分别对应16进制(hex)下的0-9a-f，这样对于每个子节点，根据其key值16进制形式下的第一位的值，就可挂载到Children数组的某个位置。</li>
+<li>fullNode本身不再需要额外key变量。</li>
+<li>Children数组的第17位，留给该fullNode的数据部分。</li>
+<li>fullNode明显继承了原生trie的特点，而每个父节点最多拥有16个分支也包含了基于总体效率的考量</li>
+</ol>
+</div>
+<div class="admonition note">
+<p class="admonition-title">shorNode</p>
+<ol>
+<li>shortNode 是一个仅有一个子节点的父(枝)节点。</li>
+<li>它的成员变量Val指向一个子节点，而成员Key是一个任意长度的字符串(字节数组[]byte)。</li>
+<li>显然shortNode的设计体现了PatriciaTrie的特点，通过合并只有一个子节点的父节点和其子节点来缩短trie的深度，结果就是有些节点会有长度更长的key。</li>
+</ol>
+</div>
+<div class="admonition note">
+<p class="admonition-title">valueNode</p>
+<ol>
+<li>valueNode 充当MPT的叶子节点。</li>
+<li>它其实是字节数组[]byte的一个别名，不带子节点。</li>
+<li>在使用中，valueNode就是所携带数据部分的RLP哈希值，长度32byte，数据的RLP编码值作为valueNode的匹配项存储在数据库里。</li>
+</ol>
+</div>
+<div class="admonition note">
+<p class="admonition-title">hashNode</p>
+<ol>
+<li>hashNode 跟valueNode一样，也是字符数组[]byte的一个别名，同样存放32byte的哈希值，也没有子节点。</li>
+<li>不同的是，hashNode是fullNode或者shortNode对象的RLP哈希值，所以它跟valueNode在使用上有着莫大的不同。</li>
+</ol>
+</div>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../../bitcoin/QA/" title="QA" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                QA
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../protocal/" title="通信协议" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                通信协议
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.583bbe55.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
+      
+        <script src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js"></script>
+      
+        <script src="../../js/material_nav_extend.js"></script>
+      
+    
+    
+      
+    
+  </body>
+</html>

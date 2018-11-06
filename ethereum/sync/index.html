@@ -1,0 +1,884 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="刘挥宇的学习笔记">
+      
+      
+        <link rel="canonical" href="https://lhybdv.github.io/bcnotes/ethereum/sync/">
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-3.0.4">
+    
+    
+      
+        <title>同步 - 区块链数据存储与同步</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.451f80e5.css">
+      
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+      <link rel="stylesheet" href="https://unpkg.com/mermaid@7.1.2/dist/mermaid.css">
+    
+    
+  </head>
+  
+    <body dir="ltr">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="../../#_1" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://lhybdv.github.io/bcnotes" title="区块链数据存储与同步" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                区块链数据存储与同步
+              </span>
+              <span class="md-header-nav__topic">
+                同步
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://lhybdv.github.io/bcnotes" title="区块链数据存储与同步" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    区块链数据存储与同步
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1">
+    
+    <label class="md-nav__link" for="nav-1">
+      比特币
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-1">
+        比特币
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../bitcoin/structure/" title="结构" class="md-nav__link">
+      结构
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../bitcoin/protocal/" title="通信协议" class="md-nav__link">
+      通信协议
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../bitcoin/sync/" title="同步" class="md-nav__link">
+      同步
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../bitcoin/QA/" title="QA" class="md-nav__link">
+      QA
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+    
+    <label class="md-nav__link" for="nav-2">
+      以太坊
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        以太坊
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../structure/" title="结构" class="md-nav__link">
+      结构
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../protocal/" title="通信协议" class="md-nav__link">
+      通信协议
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        同步
+      </label>
+    
+    <a href="./" title="同步" class="md-nav__link md-nav__link--active">
+      同步
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" title="1 被动同步" class="md-nav__link">
+    1 被动同步
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-newblockhashesmsg" title="1.1 NewBlockHashesMsg 被动模式" class="md-nav__link">
+    1.1 NewBlockHashesMsg 被动模式
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111" title="1.1.1 过程描述" class="md-nav__link">
+    1.1.1 过程描述
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-newblockmsg" title="1.2 NewBlockMsg 被动模式" class="md-nav__link">
+    1.2 NewBlockMsg 被动模式
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121" title="1.2.1 过程描述" class="md-nav__link">
+    1.2.1 过程描述
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" title="2 主动同步" class="md-nav__link">
+    2 主动同步
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" title="2.1 主动同步的主要场景" class="md-nav__link">
+    2.1 主动同步的主要场景
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" title="2.2 查找通信节点主链共同祖先" class="md-nav__link">
+    2.2 查找通信节点主链共同祖先
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../QA/" title="QA" class="md-nav__link">
+      QA
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      超级账本
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        超级账本
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../hyperledger/structure.md" title="结构" class="md-nav__link">
+      结构
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../hyperledger/protocal.md" title="通信协议" class="md-nav__link">
+      通信协议
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../hyperledger/sync.md" title="同步" class="md-nav__link">
+      同步
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../hyperledger/QA.md" title="QA" class="md-nav__link">
+      QA
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      EOS
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        EOS
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../eos/structure/" title="结构" class="md-nav__link">
+      结构
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../eos/protocal.md" title="通信协议" class="md-nav__link">
+      通信协议
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../eos/sync.md" title="同步" class="md-nav__link">
+      同步
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../eos/QA.md" title="QA" class="md-nav__link">
+      QA
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Trias
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Trias
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../trias/datastore/" title="数据层" class="md-nav__link">
+      数据层
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" title="1 被动同步" class="md-nav__link">
+    1 被动同步
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-newblockhashesmsg" title="1.1 NewBlockHashesMsg 被动模式" class="md-nav__link">
+    1.1 NewBlockHashesMsg 被动模式
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111" title="1.1.1 过程描述" class="md-nav__link">
+    1.1.1 过程描述
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-newblockmsg" title="1.2 NewBlockMsg 被动模式" class="md-nav__link">
+    1.2 NewBlockMsg 被动模式
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121" title="1.2.1 过程描述" class="md-nav__link">
+    1.2.1 过程描述
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" title="2 主动同步" class="md-nav__link">
+    2 主动同步
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" title="2.1 主动同步的主要场景" class="md-nav__link">
+    2.1 主动同步的主要场景
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" title="2.2 查找通信节点主链共同祖先" class="md-nav__link">
+    2.2 查找通信节点主链共同祖先
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="_1">数据同步<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h2 id="1">1 被动同步<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<p>被动同步由fetcher完成，被动模式又分为两种
+1. 收到blockhash广播消息(NewBlockHashesMsg)
+2. 收到完整的block广播消息(NewBlockMsg)</p>
+<h3 id="11-newblockhashesmsg">1.1 NewBlockHashesMsg 被动模式<a class="headerlink" href="#11-newblockhashesmsg" title="Permanent link">&para;</a></h3>
+<div class="mermaid">sequenceDiagram
+
+participant pm as ProtocalManager
+participant ft as Fetcher
+participant rp as Remote Peer
+rp -&gt;&gt; pm: 1: NewBlockHashesMsg
+pm -&gt;&gt; ft: 2: f.notify
+ft -&gt;&gt; ft: 3: fetchTimer.C
+Note right of ft: f.announced
+ft -&gt;&gt; rp: 4: fetchHeader
+Note right of ft: f.fetching
+rp --&gt;&gt; pm: 5: BlockHeadersMsg
+pm -&gt;&gt; ft: 6:FilterHeaders
+ft -&gt;&gt; ft: 7: f.headerFilter
+Note right of ft: f.fetched
+ft -&gt;&gt; ft: 8: completeTimer.C 
+Note right of ft: f.completing
+ft -&gt;&gt; rp: 9: fetchBodies 
+rp --&gt;&gt; pm: 10: BlockBodiesMsg
+pm -&gt;&gt; ft: 11: FilterBodies
+ft -&gt;&gt; ft: 12: f.bodyFilter
+Note right of ft: f.queue
+ft -&gt;&gt; ft: 13: Loop_queue
+ft -&gt;&gt; ft: 14: insert</div>
+
+<h4 id="111">1.1.1 过程描述<a class="headerlink" href="#111" title="Permanent link">&para;</a></h4>
+<ol>
+<li>收到外部节点NewBlockHashesMsg消息，确定本地没有，然后发送一个announce给fetcher</li>
+<li>fetcher 循环处理收到的消息，header 消息放到 f.fetching (正在获取中) 里，按要求发出 fetchHeader</li>
+<li>远端收到 fetchHeader 消息会发出 BlockHeadersMsg</li>
+<li>收到 header 消息后，检查是否需要获取 body</li>
+<li>如果需要，发出 fetchBodies 消息</li>
+<li>远端回复 BlockBodiesMsg</li>
+<li>得到 body 数据，验证，存储</li>
+</ol>
+<h3 id="12-newblockmsg">1.2 NewBlockMsg 被动模式<a class="headerlink" href="#12-newblockmsg" title="Permanent link">&para;</a></h3>
+<div class="mermaid">sequenceDiagram
+participant pm as ProtocalManager
+participant ft as Fetcher
+participant rp as Remote Peer
+
+rp -&gt;&gt; pm: 1: NewBlogMsg
+pm -&gt;&gt; ft: 2: Enqueue
+ft -&gt;&gt; ft: 3: inject
+ft -&gt;&gt; ft: 4: enqueue
+ft -&gt;&gt; ft: 5: Loop_queue
+ft -&gt;&gt; ft: 6: insert</div>
+
+<h4 id="121">1.2.1 过程描述<a class="headerlink" href="#121" title="Permanent link">&para;</a></h4>
+<p>NewBlockHashesMsg 模式的简化</p>
+<h2 id="2">2 主动同步<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<h3 id="21">2.1 主动同步的主要场景<a class="headerlink" href="#21" title="Permanent link">&para;</a></h3>
+<ol>
+<li>geth刚启动</li>
+<li>新peer加入</li>
+<li>定时sync</li>
+</ol>
+<h3 id="22">2.2 查找通信节点主链共同祖先<a class="headerlink" href="#22" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>比特币是将本地chain顶端N个block的hash及后续以1/2跳跃的方式得到m个block的hash(blocklocator)发送给外部节点，这样外部节点能轻松的找到两个节点的链的共同祖先</p>
+</li>
+<li>
+<p>以太币不一样，它分两个步骤来操作，第一步是向外部节点请求N个block的hash并和本地对比找到共同祖先，如果第一步没有找到祖先，则按照类似1/2跳跃的方式循环请求更前面的区块的hash，并和本地对比来找到共同祖先</p>
+</li>
+<li>
+<p>可见两种方式的核心区别是，比特币是主动提供本地链区块头信息，外部节点负责找出祖先，而以太币是从外部节点获取数据，本地负责找出祖先。如果共同祖先大部分都是在前N个区块，这两种方式差不多，但是如果进行到1/2跳跃请求，则以太坊的请求次数明显增多。</p>
+</li>
+</ol>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../protocal/" title="通信协议" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                通信协议
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../QA/" title="QA" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                QA
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.583bbe55.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
+      
+        <script src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js"></script>
+      
+        <script src="../../js/material_nav_extend.js"></script>
+      
+    
+    
+      
+    
+  </body>
+</html>
