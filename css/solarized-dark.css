@@ -1,0 +1,228 @@
+body {
+    font-family: Inziu Iosevka J;
+}
+
+@media only screen and (max-width: 76.1875em) {
+    .md-nav {
+        background-color: #00202b;
+    }
+}
+
+.md-header {
+    background-color: #00202b;
+}
+
+.md-container {
+    background-color: #002a36;
+}
+
+.md-typeset .footnote {
+    color: #ccc;
+}
+
+body {
+    color: #ccc;
+}
+
+.md-typeset pre {
+    background-color: #00202b;
+}
+
+.md-typeset code {
+    color: #ccc;
+    box-shadow: 0.29412em 0 0 rgba(0, 0, 0, 0.5), -0.29412em 0 0 rgba(0, 0, 0, 0.5);
+    background-color: #00202b;
+}
+
+.md-nav__link[data-md-state="blur"] {
+    color: rgba(230, 230, 230, 0.54);
+}
+
+.md-typeset h1 {
+    color: #ccc;
+}
+
+a footnote-ref::before {
+    /* border-color: #10cfff; */
+    color: #ba8a00;
+}
+
+a footnote-ref::before {
+    /* color: #10cfff; */
+    color: #ba8a00;
+}
+
+.md-nav__item--active > .md-nav__link,
+.md-nav__link:active {
+    color: #10cfff;
+    /* color: #ba8a00; */
+}
+
+.md-nav--secondary {
+    /* border-left: 1px solid #888; */
+}
+
+.md-nav__link:focus,
+.md-nav__link:hover {
+    /* color: #10cfff; */
+    color: #ba8a00;
+}
+
+.md-typeset hr {
+    border-bottom: 0.1rem dotted #666;
+}
+
+.md-footer-copyright {
+    color: #666;
+}
+
+.md-footer-nav,
+.md-footer-meta {
+    background-color: #00202b;
+}
+
+.md-typeset blockquote {
+    padding-left: 1.2rem;
+    border-left: 0.4rem solid rgba(230, 230, 230, 0.26);
+    color: rgba(230, 230, 230, 0.54);
+}
+
+@media only screen and (max-width: 76.1875em) {
+    html .md-nav--primary .md-nav__title--site {
+        background-color: #00202b;
+    }
+    html .md-nav--primary .md-nav__title ~ .md-nav__list {
+        background: linear-gradient(180deg, #00202b 10%, transparent),
+            linear-gradient(180deg, rgba(0, 0, 0, 0.26), rgba(0, 0, 0, 0.07) 35%, transparent 60%);
+        background-color: #002a36;
+    }
+}
+
+.md-typeset .codehilite,
+.md-typeset .highlight {
+    background-color: transparent;
+    color: #ccc;
+}
+
+.md-typeset code,
+.md-typeset pre {
+    color: #ccc;
+    font-family: Inziu Iosevka J;
+}
+
+.md-typeset .codehilitetable tbody {
+    border: solid 1px #555;
+}
+
+.md-typeset table:not([class]) th {
+    background-color: #0a222d;
+    /* border-bottom: solid 2px #555; */
+}
+
+.md-typeset .codehilitetable .linenos,
+.md-typeset .highlighttable .linenos {
+    background-color: #00202b;
+    color: #ccc;
+    border-right: solid 1px #555;
+    font-family: Inziu Iosevka J;
+}
+
+pre:hover .md-clipboard::before,
+.codehilite:hover .md-clipboard::before,
+.md-typeset .highlight:hover .md-clipboard::before {
+    color: #ccc;
+}
+
+.messageText {
+    fill: #ccc !important;
+}
+
+.messageLine0,
+.messageLine1 {
+    stroke: #ccc !important;
+}
+
+.actor-line {
+    stroke: #ccc !important;
+}
+
+#arrowhead {
+    stroke: #ccc;
+    fill: #ccc !important;
+}
+
+.md-sidebar__scrollwrap::-webkit-scrollbar {
+    background: #555;
+}
+
+.md-typeset h4 {
+    color: #ccc;
+    font-size: 20px;
+    font-weight: normal;
+}
+
+.md-typeset h5 {
+    color: #ccc;
+    font-size: 18px;
+    font-weight: normal;
+}
+
+.md-search-result__teaser {
+    color: #ccc;
+}
+
+.md-search__input {
+    background-color: #00202b !important;
+}
+
+.md-header .md-search__input + .md-search__icon, [data-md-toggle="search"]:checked ~ .md-header .md-search__input::placeholder {
+    color: #ccc !important;
+}
+
+[data-md-toggle="search"]:checked ~ .md-header .md-search__input {
+    color: #ccc !important;
+}
+
+.md-search-result__meta {
+    background-color: #00202b !important;
+    color: #ccc !important;
+}
+
+.md-search-result {
+    background-color: #00202b !important;
+}
+
+.md-search-result__article--document::before {
+    color: #ccc !important;
+}
+
+.md-typeset .md-typeset__table td {
+    border-top: 1px solid #555 !important;
+}
+
+ol {
+    color: #ba8a00;
+}
+
+.md-typeset .headerlink {
+    color: #ccc !important;
+}
+
+.actor {
+    fill: #002a36 !important;
+    stroke: #ccc !important;
+}
+
+text.actor {
+    color: #ccc !important;
+    fill: #ccc !important;
+    stroke: none !important;
+}
+
+.md-typeset > h1, h2, h3, h4, h5 {
+    color: #2889d2;
+}
+
+.md-typeset > h4 {
+    color: #2889d2;
+}

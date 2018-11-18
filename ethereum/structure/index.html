@@ -21,7 +21,7 @@
       
         <meta name="lang:clipboard.copied" content="Copied to clipboard">
       
-        <meta name="lang:search.language" content="en">
+        <meta name="lang:search.language" content="cn">
       
         <meta name="lang:search.pipeline.stopwords" content="True">
       
@@ -61,6 +61,8 @@
     <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
     
       <link rel="stylesheet" href="https://unpkg.com/mermaid@7.1.2/dist/mermaid.css">
+    
+      <link rel="stylesheet" href="../../css/solarized-dark.css">
     
     
   </head>
@@ -139,6 +141,13 @@
           
         
       </div>
+      
+      
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          <span class="md-header-nav__topic">
+            刘挥宇的学习笔记
+          </span>
+        </div>
       
     </div>
   </nav>
@@ -706,8 +715,9 @@
 <h3 id="11-rlp">1.1 RLP<a class="headerlink" href="#11-rlp" title="Permanent link">&para;</a></h3>
 <p><a href="https://github.com/ethereum/wiki/wiki/RLP">RLR 说明</a></p>
 <h3 id="12-sha3">1.2 以太坊中的SHA3计算<a class="headerlink" href="#12-sha3" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span>encode(data)=SHA3(RLP(data))
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>encode(data)=SHA3(RLP(data))
 </pre></div>
+</td></tr></table>
 
 <h2 id="2">2 区块的组成<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
 <h3 id="21">2.1 三部分组成<a class="headerlink" href="#21" title="Permanent link">&para;</a></h3>
@@ -927,6 +937,23 @@
     </div>
     
       <script src="../../assets/javascripts/application.583bbe55.js"></script>
+      
+        
+        
+          
+          <script src="../../assets/javascripts/lunr/lunr.stemmer.support.js"></script>
+          
+            
+              
+                <script src="../../assets/javascripts/lunr/tinyseg.js"></script>
+              
+              
+                <script src="../../assets/javascripts/lunr/lunr.cn.js"></script>
+              
+            
+          
+          
+        
       
       <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
       
