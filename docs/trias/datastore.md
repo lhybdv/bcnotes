@@ -22,7 +22,7 @@
 
 1. 不管是 UTXO 的形式，还是智能合约的形式，只要定义好了结构和相应的解析逻辑，把它们作为条目的 payload 部分，从外面看都是一个条目，这就为不同的业务逻辑存储成相同形式带来了可能。
 
-2. 如果现有的数据格式不足以满足新增的业务逻辑，那么可以定义新的数据格式，并定义对应的 itemType，如果已有的格式需要更新，也可以定义基于原来格式的新格式，毕竟区块链的数据是不能篡改的，同时，这也符合了面向对象设计中的 "对修改关闭，对扩展开放" 的开闭原则。是系统可以向后兼容。
+2. 如果现有的数据格式不足以满足新增的业务逻辑，那么可以定义新的数据格式，并定义对应的 itemType，如果已有的格式需要更新，也可以定义基于原来格式的新格式，毕竟区块链的数据是不能篡改的，同时，这也符合了面向对象设计中的 "对修改关闭，对扩展开放" 的开闭原则。使系统可以向后兼容。
 
 ### 1.2 文件仓库
 
@@ -35,6 +35,10 @@
 #### 1.2.2 为什么不存储区块文件，而是存储条目文件
 
 如前面所说，多个条目逻辑上很可能没有任何关系，假设一个节点想要获取某个条目的内容，而首先获取了整个区块，然后再进行解析，势必加大了无效的数据传输，而影响了系统性能。
+
+#### 1.2.3 仓库文件索引
+
+仓库文件索引是独立于第三方系统的文件唯一标识，不等同于 IPFS 的 FileId，假如我们使用 IPFS 来存储文件，那么需要维护一个仓库文件索引与 IPFS 的 FileId 的映射关系。
 
 ## 1. 存储结构
 
@@ -59,7 +63,7 @@
 | 4          | blockSize   | uint32   | 后面数据到块结束的字节数      |
 | 68         | blockHeader | []byte   | 块头 (大小待定)               |
 | varint     | itemCount   | uint64   | 条目数量                      |
-| varies     | items       | []byte   | 条目集合                      |
+| varies     | itemIndex   | [32]byte | 条目索引集合                  |
 
 ##### 1.2.2 Header
 
@@ -91,10 +95,19 @@
 @startuml
 
 skinparam {
-    backgroundColor #eeeeee
+    ArrowColor #ccc
+    ComponentBackgroundColor #002a36
+    ComponentBorderColor #ccc
+    ComponentFontColor #ccc
+    NoteBackgroundColor #002a36
+    NoteBorderColor #ccc
+    NoteFontColor #ccc
+    PackageBorderColor #ccc
+    PackageFontColor #ccc
+    backgroundColor #002a36
 }
 
-[IPFS] as IPFS
+[文件仓库] as fileStore
 
 package "全节点" as FullNodes {
     [全节点2] as FullNode2
@@ -115,16 +128,24 @@ package "客户节点" as ClientNodes {
     [客户节点1] as ClientNode1
 }
 
-note left of IPFS: 存放所有区块文件，状态文件
-IPFS <-- FullNode1
-IPFS <-- FullNode2
+[IPFS] <-- fileStore
+[其他文件系统] <-- fileStore
+[自实现文件系统] <-- fileStore
+
+note left of fileStore
+    1. 存放所有条目文件，状态文件
+    2. 为节点通过文件的唯一标识(索引)
+    3. 维护索引与其他系统文件 Id 的映射关系
+end note
+
+fileStore <-- FullNode1
+fileStore <-- FullNode2
 
 note top of FullNodes
-    1. 存放 IPFS FileId 与区块哈希的对应关系
-    2. 存放所有区块索引，条目索引，状态索引
-    3. 验证
-    4. 上传区块文件到 IPFS
-    5. 缓存近期区块
+    1. 存放区块文件，状态文件
+    2. 验证
+    3. 上传条目文件到 文件仓库
+    4. 缓存部分条目
 end note
 FullNode1 <-- LightNode1
 FullNode1 <-- LightNode2
@@ -153,11 +174,10 @@ LightNode4 <-- ClientNode4
 
 ### 2.1 全节点
 
-1. 与 IPFS 文件系统进行对接，存储 IPFS 返回的 FileId，形成 FileId 与区块 Hash 的映射关心 
-2. 存放所有区块索引，条目索引，状态索引
-3. 能提供全面的验证
-4. 上传区块文件到 IPFS
-5. 缓存近期区块
+1. 存放区块文件，状态文件
+2. 验证
+3. 上传条目文件到 文件仓库
+4. 缓存部分条目
 
 !!! note
     IPFS 只负责存储文件，并不参与业务逻辑，如何解析文件内容，还需要全节点来负责。

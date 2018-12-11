@@ -9,3 +9,33 @@ code {
 .hljs-comment {
     font-style: normal;
 }
+
+.actor {
+    fill: #002a36 !important;
+    stroke: #ccc !important;
+}
+
+text.actor {
+    color: #ccc !important;
+    fill: #ccc !important;
+    stroke: none !important;
+}
+
+pre {
+    background-color: #002a36 !important;
+    border: 1px solid #555 !important;
+}
+
+.mermaid {
+    background-color: #002a36;
+    padding: 0;
+    margin: 0;
+}
+
+ol {
+    color: #ba8a00;
+}
+
+h1, h2, h3, h4, h5 {
+    color: #2889d2;
+}

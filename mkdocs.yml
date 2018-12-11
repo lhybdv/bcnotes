@@ -32,6 +32,7 @@ markdown_extensions:
   - admonition
   - codehilite:
       guess_lang: false
+      linenums: true
   - toc:
       permalink: true
   - pymdownx.superfences:
@@ -41,9 +42,13 @@ markdown_extensions:
           format: !!python/name:pymdownx.superfences.fence_div_format
   - plantuml
 
-
 extra_css:
-  - https://unpkg.com/mermaid@7.1.2/dist/mermaid.css
+  - https://unpkg.com/mermaid@8.0.0-rc.8/dist/mermaid.css
+  - css/solarized-dark.css
 extra_javascript:
-  - https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js
+  - https://unpkg.com/mermaid@8.0.0-rc.8/dist/mermaid.min.js
   - js/material_nav_extend.js
+
+extra:
+  search:
+    language: 'cn'
